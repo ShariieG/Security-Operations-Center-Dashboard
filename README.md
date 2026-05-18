@@ -148,7 +148,3 @@ This project is suited for:
 - API-driven analytics architecture examples
 
 ---
-
-## ⭐ Support
-
-If you find this project useful, consider giving the repository a ⭐ — it helps others discover it!
