@@ -3,6 +3,8 @@
 ## 📋 Overview
 
 This project demonstrates an enterprise-style **Security Operations Center (SOC) analytics dashboard** built using cloud-based data ingestion, automated workflows, and Power BI modeling.
+<img width="1382" height="768" alt="Gemini_Generated_Image_ibj9ribj9ribj9ri (1)" src="https://github.com/user-attachments/assets/a5b4fedd-edf6-4bd9-8e50-0c99fc1bcaa7" />
+
 
 It simulates identity, authentication, and security telemetry pipelines using Microsoft ecosystem tools such as Microsoft Graph APIs, Power Automate, and Power BI.
 
@@ -133,22 +135,6 @@ CALCULATE(
 - No real organizational data is used
 - No credentials, API keys, or tenant IDs are exposed
 - Secure architecture principles are applied throughout
-
----
-
-## 🚀 Getting Started
-
-```bash
-git clone https://github.com/your-organization/soc-log-analytics.git
-cd soc-log-analytics
-```
-
-**Setup Steps:**
-
-1. Configure API connections (test/sandbox environment only)
-2. Import Power Automate flows from `/flows`
-3. Open the Power BI template file (`.pbit`) in Power BI Desktop
-4. Refresh the dataset and load the dashboard
 
 ---
 
