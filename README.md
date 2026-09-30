@@ -1,84 +1,68 @@
-# 🔐 Security Operations Center (SOC) Log Analytics & Ingestion Dashboard
+# 🔐 Security Operations Center (SOC) Log Analytics Dashboard
 
-## 📋 Overview
+A Power BI security operations dashboard fed by an automated identity-telemetry pipeline: **Microsoft Entra ID sign-in and risk data → Microsoft Graph API → Power Automate → SharePoint → Power BI**. It gives security teams one view of authentication health, risky users, open incidents and the most common sign-in failure reasons.
 
-This project demonstrates an enterprise-style **Security Operations Center (SOC) analytics dashboard** built using cloud-based data ingestion, automated workflows, and Power BI modeling.
-<img width="1382" height="768" alt="Gemini_Generated_Image_ibj9ribj9ribj9ri (1)" src="https://github.com/user-attachments/assets/a5b4fedd-edf6-4bd9-8e50-0c99fc1bcaa7" />
+`Power BI` `DAX` `Power Query` `Power Automate` `Microsoft Graph API` `Entra ID` `SharePoint`
 
+<img width="1382" height="768" alt="SOC dashboard overview (sensitive values redacted)" src="https://github.com/user-attachments/assets/a5b4fedd-edf6-4bd9-8e50-0c99fc1bcaa7" />
 
-It simulates identity, authentication, and security telemetry pipelines using Microsoft ecosystem tools such as Microsoft Graph APIs, Power Automate, and Power BI.
-
-> ⚠️ **Note:** All data used in this project is synthetic or anonymized for portfolio purposes. No production or sensitive organizational data is included.
+> 🔒 Sensitive values are redacted in the screenshot. The repo contains no production data, credentials, API keys or tenant IDs.
 
 ---
 
-## 🎯 Objectives
+## 🎯 What it shows
 
-- Build SOC-style security analytics dashboards
-- Automate ingestion of identity and security logs
-- Design scalable Power BI data models
-- Develop KPI-driven security intelligence reporting
-- Demonstrate API-driven data engineering workflows
+| Area | Visuals |
+|---|---|
+| **Authentication health** | Successful sign-in %, login volume by platform (Office 365, SharePoint, Teams and more) |
+| **Compliance** | Azure-compliant device % |
+| **Incidents** | Incident resolution rate, open incidents needing attention |
+| **Risk** | At-risk users, high-risk events |
+| **Root cause** | Top sign-in failure reasons (blocked sign-ins, locked accounts, failed strong authentication and more) |
+| **Navigation** | Overview, Identity & Access, Audit and Threat Management pages |
 
 ---
 
 ## 🏗️ Architecture
 
 ```
-Azure Entra ID / Identity Source
+Microsoft Entra ID (sign-in, risk and incident data)
         ↓
-Microsoft Graph API (Simulated / Controlled Access)
+Microsoft Graph API
         ↓
-Power Automate (ETL & Workflow Orchestration)
+Power Automate: scheduled extraction and orchestration
         ↓
-Data Transformation (JSON parsing & flattening)
+JSON parsing and flattening
         ↓
-Storage Layer (SharePoint / Tables / Files)
+SharePoint lists (storage layer)
         ↓
-Power BI Data Model (Star Schema)
+Power BI star-schema model (Power Query + DAX)
         ↓
-SOC Analytics Dashboard
+SOC dashboard
 ```
 
 ---
 
-## 📊 Dashboard Features
+## 📈 Key DAX measures
 
-### 🔐 Identity & Authentication Monitoring
-- Sign-in success vs failure tracking
-- Authentication pattern analysis
-- MFA failure simulation
-- Conditional access behavior insights
-
-### 🚨 Security Incident Tracking
-- Open incident status monitoring
-- Threat categorization views
-- Incident resolution tracking
-
-### 🌍 Risk & Anomaly Detection (Simulated)
-- Unusual login location detection
-- High-frequency authentication failure alerts
-- Suspicious access pattern indicators
-
----
-
-## 📈 Key DAX Measures
-
-### Authentication Success Rate
-```DAX
+**Successful sign-ins %**
+```dax
 Successful Sign-Ins % =
 VAR TotalAttempts = COUNTROWS('Fact_SignIns')
 VAR Successes =
-    CALCULATE(
-        COUNTROWS('Fact_SignIns'),
-        'Dim_Status'[Status] = "Success"
-    )
+    CALCULATE(COUNTROWS('Fact_SignIns'), 'Dim_Status'[Status] = "Success")
 RETURN
     DIVIDE(Successes, TotalAttempts, 0)
 ```
 
-### Open Incidents
-```DAX
+**Failed sign-ins**
+```dax
+Failed Sign-Ins =
+CALCULATE(COUNTROWS('Fact_SignIns'), 'Dim_Status'[Status] = "Failure")
+```
+
+**Open incidents**
+```dax
 Open Incidents =
 CALCULATE(
     COUNTROWS('Fact_Incidents'),
@@ -86,65 +70,30 @@ CALCULATE(
 )
 ```
 
-### Failed Sign-Ins
-```DAX
-Failed Sign-Ins =
-CALCULATE(
-    COUNTROWS('Fact_SignIns'),
-    'Dim_Status'[Status] = "Failure"
-)
-```
-
-### High Risk Events
-```DAX
+**High-risk events**
+```dax
 High Risk Events =
-CALCULATE(
-    COUNTROWS('Fact_RiskEvents'),
-    'Fact_RiskEvents'[RiskLevel] = "High"
-)
+CALCULATE(COUNTROWS('Fact_RiskEvents'), 'Fact_RiskEvents'[RiskLevel] = "High")
 ```
 
 ---
 
-## ⚙️ Data Pipeline
+## 🧠 Skills demonstrated
 
-| Step | Tool |
-|------|------|
-| Data Ingestion | Microsoft Graph API |
-| Workflow Orchestration | Power Automate (scheduled triggers) |
-| Schema Normalization | JSON parsing & flattening |
-| Semantic Modeling | Power BI Star Schema |
-| Storage Layer | SharePoint / Tables |
+- **Data engineering:** API-driven ETL with Power Automate, including JSON flattening
+- **Data modelling:** star schema with sign-in, incident and risk fact tables
+- **DAX:** KPI measures and filtered aggregations
+- **Security analytics:** SOC-style KPIs and failure root-cause analysis
+- **Dashboard design:** gauge-led KPI row, drill-down pages and clear status colours
 
 ---
 
-## 🧠 Skills Demonstrated
+## 📁 Repository contents
 
-- **Power BI** — DAX, data modeling, dashboard design
-- **Data Engineering** — ETL pipeline design and transformation
-- **API Integration** — Microsoft Graph API simulation
-- **Security Analytics** — SOC-style monitoring and KPI tracking
-- **Power Automate** — Workflow automation and scheduling
-- **Azure Ecosystem** — Entra ID, cloud storage, identity fundamentals
+This repo documents the project. The `.pbix` file and source data aren't published, for security reasons.
 
 ---
 
-## 🔒 Data Privacy
+## 👩🏾‍💻 Author
 
-- All datasets are anonymized or fully synthetic
-- No real organizational data is used
-- No credentials, API keys, or tenant IDs are exposed
-- Secure architecture principles are applied throughout
-
----
-
-## 📌 Use Cases
-
-This project is suited for:
-
-- Data Analytics portfolio demonstration
-- SOC / Security Analyst role showcase
-- Power BI + Azure ecosystem skill validation
-- API-driven analytics architecture examples
-
----
+**Sharon Galela** · [LinkedIn](https://www.linkedin.com/in/sharon-galela-6998bb265) · [GitHub](https://github.com/ShariieG)
